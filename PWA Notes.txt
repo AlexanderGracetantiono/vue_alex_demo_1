@@ -3,3 +3,47 @@ Mas Wildan dan mas bayu
 PWA gak harus VUE, fokus VUE js untuk framework nya
 Kemudahan X Performa, 
 Vue prosnya kemudahan, tapi perfoma nya jelek
+
+Waht is PWA, native itu aplikasi yang di install
+webapp bisa diakses di 2 tempat, kalau native itu harus install dll. concern nya terkait application VS Web
+
+Q nya, 
+CONS WEb
+kalau offline? tampilin halaman 404? 
+web app gabisa access camera? ini perlu ditanya sih!
+
+native apps
+butuh multiple code untuk menghasilkan 1 produk,..
+
+jadi apakah PWA ini merupakan solusi untuk sebuah aplikasi yang tidak perlu di instal? ini menghilangkan cons application
+bisa diakses offline?  bisa akses camera dll
+
+appmeta data
+offline first
+
+
+kendala install vue di laptop kantor
+1. kendala proxy (solved via replace pnpm dengan npm aja)
+2. untuk override/ bypass pengecekan sertifikat node set NODE_TLS_REJECT_UNAUTHORIZED=0
+3. settingan proxy, ini nyangkut ke user, jadi harus dijalanin lagi http-proxy=
+http://udomain:pass@proxy.intra.bca.co.id:8080/
+https-proxy=
+http://
+udomain:pass
+@proxy.intra.bca.co.id:8080/
+registry=
+https://registry.npmjs.org/
+strict-ssl=false
+4. issue comment di HTML before <head> ada issue jadi white screen, ini dicoba di alex tidak ngaruh..
+5. 
+
+knowing how to VUE
+1. VS code
+2. Node Modules (npm dll. including PWA)
+3. Public (file dan aset statis)
+4. package.json berkas konfigurasi proyek contoh asset generator
+5. vite.config.js 
+
+
+Service Worker
+untuk update realtime

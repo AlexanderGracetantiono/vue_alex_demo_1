@@ -5,18 +5,20 @@ import { VitePWA } from 'vite-plugin-pwa'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue(),
+    // pada dasarnya tanpa VitePWA, aplikasi VUE bisa berjalan, Vite PWA sendiri membawa perubahan yaitu webapp dapat didownload pada android dan IOS
   VitePWA({
-    registerType:'autoUpdate',
+    registerType:'prompt',
     devOptions:{
       enabled:true
     },
     includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
     manifest: {
-      name: 'My Awesome App',
+      // name dan short name harusnya berefek apabila aplikasi di download di android/ios
+      name: '10 Hal Kenapa Daniel Ganteng Banget',
       short_name: 'MyApp',
       description: 'My Awesome App description',
       theme_color: '#ffffff',
-      icons: [
+      icons: [ // icon ini diusahakan ada berbagai macam size, untuk mengakomodasi kebutuhan perikonan
         {
           src: 'pwa-64x64.png',
           sizes: '64x64',
@@ -39,7 +41,9 @@ export default defineConfig({
           type: 'image/png',
           purpose: 'maskable'
         }
-      ]
+      ],
+      display:'minimal-ui'
+      // display itu efek terhadap tampilan yang akan ditampilkan, apakah full screen, minimal dll, value display:browser itu default
     }
   })],
 })
