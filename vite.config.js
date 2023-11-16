@@ -7,7 +7,12 @@ export default defineConfig({
   plugins: [vue(),
     // pada dasarnya tanpa VitePWA, aplikasi VUE bisa berjalan, Vite PWA sendiri membawa perubahan yaitu webapp dapat didownload pada android dan IOS
   VitePWA({
-    registerType:'prompt',
+    //  service worker butuh strategies, scrDir, dan fileName
+    strategies:'injectManifest',
+    srcDir:'src',
+    filename:'sw.js',
+    
+    registerType:'autoUpdate',
     devOptions:{
       enabled:true
     },

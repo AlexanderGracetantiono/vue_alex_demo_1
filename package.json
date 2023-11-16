@@ -7,10 +7,11 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "generate-pwa-assets":"pwa-assets-generator"
+    "generate-pwa-assets": "pwa-assets-generator"
   },
   "dependencies": {
-    "vue": "^3.3.4"
+    "vue": "^3.3.4",
+    "workbox-precaching": "^7.0.0"
   },
   "devDependencies": {
     "@vite-pwa/assets-generator": "^0.0.10",
