@@ -1,0 +1,5 @@
+PWA Notes
+Mas Wildan dan mas bayu
+PWA gak harus VUE, fokus VUE js untuk framework nya
+Kemudahan X Performa, 
+Vue prosnya kemudahan, tapi perfoma nya jelek
