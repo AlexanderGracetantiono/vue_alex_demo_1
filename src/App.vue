@@ -1,7 +1,5 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import DanielPhotoComponent from './components/DanielPhoto.vue'
-import ContohAttributeBindingComponent from './components/ContohAttrBinding.vue'
+import MainComponent from './components/MainComponent.vue'
 import ReloadPrompt from './components/ReloadPrompt.vue'
 import HeaderComponent from './components/shared/Header.vue'
 import FooterComponent from './components/shared/Footer.vue'
@@ -10,10 +8,7 @@ import FooterComponent from './components/shared/Footer.vue'
 <template>
   <ReloadPrompt/>
   <HeaderComponent/>
-  <HelloWorld msg="Lorem Impsum Si Dolor Admet" />
-  <DanielPhotoComponent msg="HTML V2" 
-  imageUrl="https://th.bing.com/th/id/OIP.domCFfMKnJYT-bC4BX4adQHaE7?pid=ImgDet&w=2048&h=1365&rs=1" />
-  <ContohAttributeBindingComponent msg="Contoh Cara binding HTML"/>
+  <MainComponent />
   <FooterComponent/>
 </template>
 

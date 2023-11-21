@@ -3,7 +3,7 @@
 
 <template>
   <div class="header-class">
-    <span class="header-title">Learn Vue JS</span>
+    <span class="header-title">Learn Vue JS V3</span>
   </div>
 </template>
 

@@ -11,6 +11,7 @@ const close = async () => {
   offlineReady.value = false
   needRefresh.value = false
 }
+console.log('updateServiceWorker',updateServiceWorker)
 </script>
 
 <template>

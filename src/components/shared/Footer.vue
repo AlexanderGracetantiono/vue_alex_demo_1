@@ -3,7 +3,7 @@
 
 <template>
   <div class="footer-class">
-<span class="footer-title">Learn vue js copyright @ MIT 2023</span>
+<span class="footer-title">Learn vue js copyright AXESIDE @ MIT 2023</span>
   </div>
 </template>
 
