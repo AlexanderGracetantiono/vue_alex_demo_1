@@ -8,10 +8,9 @@ export default defineConfig({
     // pada dasarnya tanpa VitePWA, aplikasi VUE bisa berjalan, Vite PWA sendiri membawa perubahan yaitu webapp dapat didownload pada android dan IOS
   VitePWA({
     //  service worker butuh strategies, scrDir, dan fileName
-    strategies:'injectManifest',
+    strategies:'generateSW',
     srcDir:'src',
     filename:'sw.js',
-    
     registerType:'autoUpdate',
     devOptions:{
       enabled:true
@@ -49,6 +48,26 @@ export default defineConfig({
       ],
       display:'minimal-ui'
       // display itu efek terhadap tampilan yang akan ditampilkan, apakah full screen, minimal dll, value display:browser itu default
+    },
+    workbox: {
+      runtimeCaching: [
+        {
+          urlPattern: /^http:\/\/localhost:3000\/user$/,
+          // urlPattern: /^https:\/\/pokeapi.co\/api\/v2\/pokemon$/,
+          handler: 'NetworkOnly', 
+          // handler ini ada Net only 9no cache), Cache Only, Revalidate, and network/cache first
+          options: {
+            cacheName: 'auth-user-cache',
+            expiration: {
+              maxEntries: 10,
+              maxAgeSeconds: 5 // <== 3 second for dev only
+            },
+            cacheableResponse: {
+              statuses: [0, 200]
+            }
+          }
+        },
+      ],
     }
   })],
 })
