@@ -10,6 +10,9 @@
     "generate-pwa-assets": "pwa-assets-generator"
   },
   "dependencies": {
+    "firebase": "^10.6.0",
+    "vue": "^3.3.8",
+    "vuefire": "^3.1.18",
     "vuetify": "^3.4.3",
     "workbox-background-sync": "^7.0.0",
     "workbox-core": "^7.0.0",

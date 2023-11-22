@@ -123,6 +123,18 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import CardComponent from './shared/PeopleCard.vue'
+import { getDatabase, set, ref as dbRef } from "firebase/database";
+
+// FIREBASE
+function writeUserData(customerData) {
+  // userId, username,imageBlob
+  const db = getDatabase();
+  set(dbRef(db, 'users/' + customerData.ssn), {
+    name: customerData.name,
+    image: URL.createObjectURL(customerData.image)
+  });
+}
+
 // Create Broadcast Channel and listen to messages sent to it
 const broadcast = new BroadcastChannel('sw-update-channel');
 
@@ -203,7 +215,7 @@ async function addData() {
           console.log("Add transaction completed");
           db.close();
           readData()
-          postData(customerToAdd)
+          writeUserData(customerToAdd)
         };
     };
   };

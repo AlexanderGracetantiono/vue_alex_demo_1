@@ -4,11 +4,13 @@ import ReloadPrompt from './components/ReloadPrompt.vue'
 import HeaderComponent from './components/shared/Header.vue'
 import FooterComponent from './components/shared/Footer.vue'
 import VuetifySample from './components/VuetifySample.vue'
+import RealtimeDBComponent from './components/RealtimeDB.vue'
 
 </script>
 <template>
   <ReloadPrompt/>
-  <VuetifySample/>
+<!-- <RealtimeDBComponent/> -->
+  <!-- <VuetifySample/> -->
   <HeaderComponent/>
   <MainComponent />
   <FooterComponent/>
