@@ -47,3 +47,18 @@ knowing how to VUE
 
 Service Worker
 untuk update realtime
+
+
+
+
+Day 4
+background Sync, apabila sedang membeli tiket, 
+kalau lagi gada internet, sedangkan sudah di post,..
+instead of error, bisa pakai backgroundsync dengan variable max retention time
+sejenis prosedur pencegahan 
+Fokus day 4 itu di Sync
+
+Q ; kenapa perlu penamaan, 
+Q : max retention time itu gmn? kapan expired ? dalam menit terkait ini balum ada percobaaan
+
+Publish and subscibe broadcastChannel push notif? 

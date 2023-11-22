@@ -1,72 +1,34 @@
 {
   "user": [
     {
-      "id": 1,
-      "name": "Alex"
+      "ssn": 4,
+      "name": "Alex",
+      "image": {},
+      "id": 1
     },
     {
-      "id": 2,
-      "name": "Jason"
+      "ssn": 5,
+      "name": "Alex",
+      "image": {},
+      "id": 2
     },
     {
-      "id": 3,
-      "name": "Vindictae"
+      "ssn": 6,
+      "name": "Alex",
+      "image": {},
+      "id": 3
     },
     {
-      "name": "Hello Daniel",
+      "ssn": 7,
+      "name": "Alex 222",
+      "image": "{}",
       "id": 4
     },
     {
-      "name": "Hello Jason",
       "id": 5
     },
     {
-      "name": "HHHEHHE",
       "id": 6
-    },
-    {
-      "name": "HHHEHHE333",
-      "id": 7
-    },
-    {
-      "name": "Hello 5555",
-      "id": 8
-    },
-    {
-      "name": "Hello 9999",
-      "id": 9
-    },
-    {
-      "name": "Hello 9999",
-      "id": 10
-    },
-    {
-      "name": "TEST 100",
-      "id": 11
-    },
-    {
-      "name": "alex123",
-      "id": 12
-    },
-    {
-      "name": "Naomi",
-      "id": 13
-    },
-    {
-      "name": "Naomi2",
-      "id": 14
-    },
-    {
-      "name": "Naomi22",
-      "id": 15
-    },
-    {
-      "name": "Naomi23",
-      "id": 16
-    },
-    {
-      "name": "Naomi33",
-      "id": 17
     }
   ],
   "comments": [

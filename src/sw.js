@@ -16,13 +16,15 @@
 import { cacheNames, clientsClaim } from 'workbox-core';
 import { registerRoute, setCatchHandler, setDefaultHandler } from 'workbox-routing';
 // import { StrategyHandler } from 'workbox-strategies';
-import { NetworkFirst, NetworkOnly, Strategy } from 'workbox-strategies';
+import { NetworkOnly, NetworkFirst, Strategy } from 'workbox-strategies';
 // import { cache, skipWaiting } from 'workbox-sw';
 
 import {CacheFirst} from 'workbox-strategies';
 import {ExpirationPlugin} from 'workbox-expiration';
 import {CacheableResponsePlugin} from 'workbox-cacheable-response';
 
+import {BackgroundSyncPlugin} from 'workbox-background-sync';
+import {Queue} from 'workbox-background-sync';
 // Give JavaScript the correct global.
 self.skipWaiting();
 
@@ -35,7 +37,27 @@ const data = {
 };
 
 const cacheName = cacheNames.runtime;
+const queue = new Queue('myQueueName');
+const bgSyncPlugin = new BackgroundSyncPlugin('myQueueName2', {
+  maxRetentionTime: 24 * 60, // Retry for max of 24 Hours (specified in minutes)
+});
 
+const statusPlugin = {
+  fetchDidSucceed: ({response}) => {
+    if (response.status >= 500) {
+      // Throwing anything here will trigger fetchDidFail.
+      console.log('satu')
+      throw new Error('Server error.');
+    }
+    // If it's not 5xx, use the response as-is.
+    console.log('response.status success:', response.status)
+    return response;
+  },
+  fetchDidFail: ({error}) => {
+    console.log('response fail:', error)
+    throw new Error(error);
+  },
+};
 const buildStrategy = () => {
   if (data.race) {
     class CacheNetworkRace extends Strategy {
@@ -63,9 +85,9 @@ const buildStrategy = () => {
   }
   else {
     if (data.networkTimeoutSeconds > 0)
-      return new NetworkFirst({ cacheName, networkTimeoutSeconds: data.networkTimeoutSeconds });
+      return new NetworkOnly({ cacheName, networkTimeoutSeconds: data.networkTimeoutSeconds });
     else
-      return new NetworkFirst({ cacheName });
+      return new NetworkOnly({ cacheName });
   }
 };
 
@@ -82,9 +104,20 @@ const manifestURLs = manifest.map(
     return url.href;
   }
 );
-self.addEventListener('push',(event)=>{
-    // caches.postMessage('DPT PUSH NIH')
-})
+
+self.addEventListener("push", async (event) => {
+  console.log('event:', event.data.text());
+  console.log("push")
+
+  broadcast.postMessage({
+    type: 'CRITICAL_SW_UPDATE',
+    payload: {
+      version: '1.0.1',
+      details: 'This is a critical update. Please update your app.'
+    }
+   });
+});
+
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(cacheName).then((cache) => {
@@ -118,26 +151,63 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-registerRoute(
-    /^http:\/\/localhost:3000\/user$/,
-    new NetworkFirst({
-      cacheName: 'auth-user-cache',
-      plugins: [
-        new ExpirationPlugin({
-          maxEntries: 10,
-          maxAgeSeconds: 30, // 3 seconds for development, adjust for production
-        }),
-        new CacheableResponsePlugin({
-          statuses: [0, 200],
-        }),
-      ],
-    })
-  );
+self.addEventListener('fetch', event => {
+  // Add in your own criteria here to return early if this
+  // isn't a request that should use background sync.
+  if (event.request.method !== 'POST') {
+    return;
+  }
+
+  const bgSyncLogic = async () => {
+    try {
+      const response = await fetch(event.request.clone());
+      return response;
+    } catch (error) {
+      await queue.pushRequest({request: event.request});
+      return error;
+    }
+  };
+
+  event.respondWith(bgSyncLogic());
+});
+
+// Create Broadcast Channel to send messages to the page
+const broadcast = new BroadcastChannel('sw-update-channel');
+self.addEventListener("sync", async (event) => {
+  console.log("sync triggered")
+  broadcast.postMessage({
+    type: 'CRITICAL_SW_UPDATE',
+    payload: {
+      version: '1.0.1',
+      details: 'This is a critical update. Please update your app.'
+    }
+   });
+});
 
 registerRoute(
     ({ url }) => manifestURLs.includes(url.href),
     buildStrategy()
   );
+
+  
+registerRoute(
+  /^https:\/\/pokeapi.co\/api\/v2\/pokemon$/,
+  new NetworkOnly({
+    cacheName: 'auth-user-cache',
+    plugins: [
+      statusPlugin,
+      bgSyncPlugin,
+      // new ExpirationPlugin({
+      //   maxEntries: 10,
+      //   maxAgeSeconds: 30, // 3 seconds for development, adjust for production
+      // }),
+      // new CacheableResponsePlugin({
+      //   statuses: [0, 200],
+      // }),
+    ],
+  }),
+  'GET'
+);
 
 setDefaultHandler(new NetworkOnly());
 
@@ -152,4 +222,4 @@ setCatchHandler(({ event }) => {
       return Promise.resolve(Response.error());
   }
 });
-clientsClaim();
+clientsClaim()

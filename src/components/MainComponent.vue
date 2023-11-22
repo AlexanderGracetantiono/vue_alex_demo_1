@@ -22,6 +22,7 @@
     <div class="header-class">
       <span class="header-title">View Data</span>
       <button @click="readData">View Data</button>
+      <button @click="fetchData">Fetch Data</button>
     </div>
         <div  v-for="item in customers" :key="item.ssn" >
          <div class="view-data-container">
@@ -122,8 +123,22 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import CardComponent from './shared/PeopleCard.vue'
+// Create Broadcast Channel and listen to messages sent to it
+const broadcast = new BroadcastChannel('sw-update-channel');
+
+broadcast.onmessage = (event) => {
+  if (event.data && event.data.type === 'CRITICAL_SW_UPDATE') {
+    // Show "update to refresh" banner to the user.
+    const payload = event.data.payload;
+
+    // Log the payload to the console
+    console.log(payload);
+    //show()
+  }
+};
 // const base_url_1 = "https://my-json-server.typicode.com/AlexanderGracetantiono/json-server-sample/user"
-const base_url_1 = "http://localhost:3000/user"
+// const base_url_1 = "http://localhost:3000/user"
+const base_url_1 = "https://pokeapi.co/api/v2/pokemon"
 // Define reactive variables
 const title = ref('CRUD Index DB');
 
@@ -188,6 +203,7 @@ async function addData() {
           console.log("Add transaction completed");
           db.close();
           readData()
+          postData(customerToAdd)
         };
     };
   };
@@ -334,19 +350,35 @@ async function deleteData(eventData) {
 //   // Call fetchData when the component is mounted
 //   onMounted(fetchData);
 
-// async function fetchData(){
-//   try {
-//     const response = await fetch(base_url_1);
-//     if (response.ok) {
-//       const data = await response.json();
-//       items.value = data;
-//     } else {
-//       console.error('Failed to fetch data');
-//     }
-//   } catch (error) {
-//     console.error('An error occurred:', error);
-//   }
-// }
+async function fetchData(){
+  try {
+    const response = await fetch(base_url_1);
+    if (response.ok) {
+      const data = await response.json();
+      // items.value = data.results;
+    } else {
+      console.error('Failed to fetch data');
+    }
+  } catch (error) {
+    console.error('An error occurred:', error);
+  }
+}
+async function postData(customerToAdd){
+  // previewImage.value =  URL.createObjectURL(blob);
+  console.log('postData',customerToAdd)
+  try {
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'multipart/form-data' },
+        body: JSON.stringify(customerToAdd)
+      };
+    fetch(base_url_1, requestOptions)
+        .then(response => response.json())
+        .then(data => product.value = data);
+  } catch (error) {
+    console.error('An error occurred:', error);
+  }
+}
 // Call fetchData when the component is mounted
 onMounted();
 </script>
