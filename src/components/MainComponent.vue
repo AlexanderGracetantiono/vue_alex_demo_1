@@ -1,6 +1,6 @@
 <template>
   <div style="padding: 15px 20px;">
-    <h1>{{ title }}</h1>
+    <h1 style="color: white;">{{ title }}</h1>
     <div class="header-class">
       <span class="header-title">{{ isEdit?'Edit Existing User':'Add New User' }}</span>
       <button v-if="isEdit" @click="changeToAddUser">Add New User</button>
@@ -54,8 +54,8 @@
   display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 10px;
-    background-color: rgb(229, 250, 251);
+    padding: 10px 20px;
+    background-color: #ECF4D6;
 }
 .input-style{
   width: -webkit-fill-available;
@@ -87,8 +87,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 10px;
-  background-color: rgb(229, 250, 251);
+  padding: 20px 20px;
+  background-color: #ECF4D6;
   border-top-right-radius: 20px;
   border-top-left-radius: 20px;
   margin-top: 10px;
@@ -99,14 +99,14 @@
   font-weight: 600;
 }
 .view-data-container{
-    background-color: rgb(229, 250, 251) ;
+    background-color: #ECF4D6 ;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 10px 20px;
 }
 .view-data-container:hover{
-  background-color: rgb(181, 250, 253);
+  background-color: #9AD0C2;
     display: flex;
     align-items: center;
     padding: 10px 20px;

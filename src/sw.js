@@ -83,8 +83,6 @@ const manifestURLs = manifest.map(
   }
 );
 self.addEventListener('push',(event)=>{
-    console.log('PUSH',event)
-    console.log(caches)
     // caches.postMessage('DPT PUSH NIH')
 })
 self.addEventListener('install', (event) => {

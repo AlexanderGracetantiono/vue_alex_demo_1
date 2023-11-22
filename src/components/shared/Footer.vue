@@ -19,7 +19,7 @@
   padding: 20px 10px;
 }
 .footer-title{
-  color: black;
+  color: white;
   font-size: 18px;
   font-weight: 600;
 }
