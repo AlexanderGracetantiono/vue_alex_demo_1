@@ -1,44 +1,17 @@
-// import { precacheAndRoute } from "workbox-precaching";
-// precacheAndRoute(self.__WB_MANIFEST)
-// self.addEventListener('install',(event)=>{
-//     console.log('installl:')
-// })
-// self.addEventListener('activate',(event)=>{
-//     console.log('activate:')
-// })
-// self.addEventListener('fetch',(event)=>{
-//     console.log('fetch:')
-// })
-// self.addEventListener('push',(event)=>{
-//     console.log('push:')
-// })
-
 import { cacheNames, clientsClaim } from 'workbox-core';
 import { registerRoute, setCatchHandler, setDefaultHandler } from 'workbox-routing';
 // import { StrategyHandler } from 'workbox-strategies';
-import { NetworkOnly, NetworkFirst, Strategy } from 'workbox-strategies';
+import { NetworkFirst, NetworkOnly, Strategy } from 'workbox-strategies';
 // import { cache, skipWaiting } from 'workbox-sw';
-
-import {CacheFirst} from 'workbox-strategies';
-import {ExpirationPlugin} from 'workbox-expiration';
-import {CacheableResponsePlugin} from 'workbox-cacheable-response';
-
 import {BackgroundSyncPlugin} from 'workbox-background-sync';
 import {Queue} from 'workbox-background-sync';
+
 // Give JavaScript the correct global.
 self.skipWaiting();
 
-const data = {
-  race: false,
-  debug: false,
-  credentials: 'same-origin',
-  networkTimeoutSeconds: 0,
-  fallback: 'index.html'
-};
-
-const cacheName = cacheNames.runtime;
 const queue = new Queue('myQueueName');
-const bgSyncPlugin = new BackgroundSyncPlugin('myQueueName2', {
+
+const bgSyncPlugin = new BackgroundSyncPlugin('myQueueWildan', {
   maxRetentionTime: 24 * 60, // Retry for max of 24 Hours (specified in minutes)
 });
 
@@ -58,6 +31,17 @@ const statusPlugin = {
     throw new Error(error);
   },
 };
+
+const data = {
+  race: false,
+  debug: true,
+  credentials: 'same-origin',
+  networkTimeoutSeconds: 0,
+  fallback: 'index.html'
+};
+
+const cacheName = cacheNames.runtime;
+
 const buildStrategy = () => {
   if (data.race) {
     class CacheNetworkRace extends Strategy {
@@ -85,9 +69,9 @@ const buildStrategy = () => {
   }
   else {
     if (data.networkTimeoutSeconds > 0)
-      return new NetworkOnly({ cacheName, networkTimeoutSeconds: data.networkTimeoutSeconds });
+      return new NetworkFirst({ cacheName, networkTimeoutSeconds: data.networkTimeoutSeconds });
     else
-      return new NetworkOnly({ cacheName });
+      return new NetworkFirst({ cacheName });
   }
 };
 
@@ -104,19 +88,6 @@ const manifestURLs = manifest.map(
     return url.href;
   }
 );
-
-self.addEventListener("push", async (event) => {
-  console.log('event:', event.data.text());
-  console.log("push")
-
-  broadcast.postMessage({
-    type: 'CRITICAL_SW_UPDATE',
-    payload: {
-      version: '1.0.1',
-      details: 'This is a critical update. Please update your app.'
-    }
-   });
-});
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -173,8 +144,40 @@ self.addEventListener('fetch', event => {
 
 // Create Broadcast Channel to send messages to the page
 const broadcast = new BroadcastChannel('sw-update-channel');
+
+
+// self.addEventListener('install', function (event) {
+//   console.log('install:')
+//   // Inform the page every time a new service worker is installed
+//   broadcast.postMessage({type: 'CRITICAL_SW_UPDATE'});
+// });
+
 self.addEventListener("sync", async (event) => {
   console.log("sync triggered")
+  broadcast.postMessage({
+    type: 'CRITICAL_SW_UPDATE',
+    payload: {
+      version: '1.0.1',
+      details: 'This is a critical update. Please update your app.'
+    }
+   });
+  // broadcast.postMessage({ type: 'MSG_ID', });
+  // Check if the sync event is for the sync tag we are interested in.
+  // if (event.tag !== "my-sync-tag") {
+  //   return;
+  // }
+
+  // // Get the queue of pending requests.
+  // const queue = new workbox.backgroundSync.Queue("my-sync-queue");
+
+  // // Replay all of the pending requests.
+  // await queue.replayRequests();
+});
+
+self.addEventListener("push", async (event) => {
+  console.log('event:', event.data.text());
+  console.log("push")
+
   broadcast.postMessage({
     type: 'CRITICAL_SW_UPDATE',
     payload: {
@@ -185,25 +188,17 @@ self.addEventListener("sync", async (event) => {
 });
 
 registerRoute(
-    ({ url }) => manifestURLs.includes(url.href),
-    buildStrategy()
-  );
+  ({ url }) => manifestURLs.includes(url.href),
+  buildStrategy()
+);
 
-  
+// Define your runtime caching strategy here
 registerRoute(
   /^https:\/\/pokeapi.co\/api\/v2\/pokemon$/,
   new NetworkOnly({
-    cacheName: 'auth-user-cache',
     plugins: [
-      statusPlugin,
       bgSyncPlugin,
-      // new ExpirationPlugin({
-      //   maxEntries: 10,
-      //   maxAgeSeconds: 30, // 3 seconds for development, adjust for production
-      // }),
-      // new CacheableResponsePlugin({
-      //   statuses: [0, 200],
-      // }),
+      statusPlugin
     ],
   }),
   'GET'
@@ -222,4 +217,4 @@ setCatchHandler(({ event }) => {
       return Promise.resolve(Response.error());
   }
 });
-clientsClaim()
+clientsClaim();

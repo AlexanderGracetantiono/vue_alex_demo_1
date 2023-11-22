@@ -62,3 +62,11 @@ Q ; kenapa perlu penamaan,
 Q : max retention time itu gmn? kapan expired ? dalam menit terkait ini balum ada percobaaan
 
 Publish and subscibe broadcastChannel push notif? 
+
+Day 4 _ Responsive Design
+biasa nya pakai vannila, burma, dll
+ada juga component framework / component library .UI atau MUI
+contoh Vuetify.
+Responsive Design -> grid system
+Viewport and Scaling
+media Queries e.g @media

@@ -137,8 +137,8 @@ broadcast.onmessage = (event) => {
   }
 };
 // const base_url_1 = "https://my-json-server.typicode.com/AlexanderGracetantiono/json-server-sample/user"
-// const base_url_1 = "http://localhost:3000/user"
-const base_url_1 = "https://pokeapi.co/api/v2/pokemon"
+const base_url_1 = "http://localhost:3000/user"
+// const base_url_1 = "https://pokeapi.co/api/v2/pokemon"
 // Define reactive variables
 const title = ref('CRUD Index DB');
 
@@ -367,10 +367,15 @@ async function postData(customerToAdd){
   // previewImage.value =  URL.createObjectURL(blob);
   console.log('postData',customerToAdd)
   try {
+    var fd = new FormData();
+    fd.append(name,customerToAdd.name)
+    fd.append(ssn,customerToAdd.ssn)
+    fd.append(image,customerToAdd.image)
+    console.log('FD',fd)
       const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'multipart/form-data' },
-        body: JSON.stringify(customerToAdd)
+        body: fd
       };
     fetch(base_url_1, requestOptions)
         .then(response => response.json())

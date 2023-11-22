@@ -10,6 +10,7 @@
     "generate-pwa-assets": "pwa-assets-generator"
   },
   "dependencies": {
+    "vuetify": "^3.4.3",
     "workbox-background-sync": "^7.0.0",
     "workbox-core": "^7.0.0",
     "workbox-precaching": "^7.0.0",

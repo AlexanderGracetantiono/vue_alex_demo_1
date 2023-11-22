@@ -1,35 +1,5 @@
 {
   "user": [
-    {
-      "ssn": 4,
-      "name": "Alex",
-      "image": {},
-      "id": 1
-    },
-    {
-      "ssn": 5,
-      "name": "Alex",
-      "image": {},
-      "id": 2
-    },
-    {
-      "ssn": 6,
-      "name": "Alex",
-      "image": {},
-      "id": 3
-    },
-    {
-      "ssn": 7,
-      "name": "Alex 222",
-      "image": "{}",
-      "id": 4
-    },
-    {
-      "id": 5
-    },
-    {
-      "id": 6
-    }
   ],
   "comments": [
     {

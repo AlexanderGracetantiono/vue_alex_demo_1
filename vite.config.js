@@ -53,9 +53,9 @@ export default defineConfig({
     //   runtimeCaching: [
     //     {
     //       //https://my-json-server.typicode.com/AlexanderGracetantiono/json-server-sample/
-    //       urlPattern: /^http:\/\/localhost:3000\/user$/,
-    //       // urlPattern: /^https:\/\/pokeapi.co\/api\/v2\/pokemon$/,
-    //       handler: 'NetworkOnly', 
+    //       // urlPattern: /^http:\/\/localhost:3000\/user$/,
+    //       urlPattern: /^https:\/\/pokeapi.co\/api\/v2\/pokemon$/,
+    //       handler: 'NetworkFirst', 
     //       // handler ini ada Net only 9no cache), Cache Only, Revalidate, and network/cache first
     //       options: {
     //         cacheName: 'auth-user-cache',
