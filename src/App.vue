@@ -5,15 +5,19 @@ import HeaderComponent from './components/shared/Header.vue'
 import FooterComponent from './components/shared/Footer.vue'
 import VuetifySample from './components/VuetifySample.vue'
 import RealtimeDBComponent from './components/RealtimeDB.vue'
+import VueUserComponent from './components/VueUse.vue'
+import VueModalComponent from './components/VueModal.vue'
 
 </script>
 <template>
   <ReloadPrompt/>
+  <VueModalComponent/>
 <!-- <RealtimeDBComponent/> -->
   <!-- <VuetifySample/> -->
-  <HeaderComponent/>
+<VueUserComponent/>
+  <!-- <HeaderComponent/>
   <MainComponent />
-  <FooterComponent/>
+  <FooterComponent/> -->
 </template>
 
 <style scoped>

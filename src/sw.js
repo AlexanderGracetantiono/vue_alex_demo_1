@@ -182,7 +182,8 @@ self.addEventListener("push", async (event) => {
     type: 'CRITICAL_SW_UPDATE',
     payload: {
       version: '1.0.1',
-      details: 'This is a critical update. Please update your app.'
+      details: event.data.text(),
+      imageSepertinya:'https://m.media-amazon.com/images/I/51b8hGomjbL._AC_UF894,1000_QL80_.jpg'
     }
    });
 });

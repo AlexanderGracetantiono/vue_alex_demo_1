@@ -1,5 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
+// import { getMessaging } from "firebase/messaging";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -16,3 +17,21 @@ const firebaseConfig = {
 
 // Initialize Firebase
 export const firebaseApp = initializeApp(firebaseConfig);
+// const messaging = getMessaging(app);
+// getToken(messaging, {vapidKey: "BPyQEWL_eNmjzNQ_wpx30XLdsop2qYUexmqacHAvKUJtxKXoVWZKQP610FbPYpw9Fm_UvVaJHs7BPP1ONm5BAoc"});
+// export const analytics = getAnalytics(app);
+
+// messaging.onBackgroundMessage((payload) => {
+//   console.log(
+//     "[firebase-messaging-sw.js] Received background message ",
+//     payload
+//   );
+//   // Customize notification here
+//   const notificationTitle = payload.notification.title;
+//   const notificationOptions = {
+//     body: payload.notification.body,
+//     icon: "/firebase-logo.png",
+//   };
+
+//   self.registration.showNotification(notificationTitle, notificationOptions);
+// });

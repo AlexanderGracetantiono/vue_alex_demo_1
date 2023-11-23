@@ -10,6 +10,7 @@
     "generate-pwa-assets": "pwa-assets-generator"
   },
   "dependencies": {
+    "@vueuse/core": "^10.6.1",
     "firebase": "^10.6.0",
     "vue": "^3.3.8",
     "vuefire": "^3.1.18",

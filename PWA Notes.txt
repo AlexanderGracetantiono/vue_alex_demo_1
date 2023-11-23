@@ -70,3 +70,18 @@ contoh Vuetify.
 Responsive Design -> grid system
 Viewport and Scaling
 media Queries e.g @media
+
+service Worker sync untuk bg reload
+SW fetch untuk saat fetch data
+SW push untuk push Notification
+
+Day 5
+Web Push Notification.
+vueuse -> ini untuk akses permission user. -> salah satunya use message notif
+bisa dibuat dari nol, tpi gapuerlu dibuat lg sih
+MDN WEBAPI,..
+salah satunya web Notification?
+vue use itu framework..
+
+
+Notes

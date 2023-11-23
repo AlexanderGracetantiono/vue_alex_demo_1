@@ -10,7 +10,8 @@ import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 
 import {
-  firebaseApp
+  firebaseApp,
+  
 } from "./firebase";
 
 const vuetify = createVuetify({
@@ -37,4 +38,5 @@ app.use(VueFire, {
     VueFireAuth(),
   ],
 })
+// app.config.globalProperties.$messaging = firebaseMessaging
 app.mount('#app')
